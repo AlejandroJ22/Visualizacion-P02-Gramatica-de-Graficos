@@ -1,0 +1,7 @@
+[32m2026-02-12 19:05:16 +0000[0m - dagster - [34mDEBUG[0m - __ASSET_JOB - 61636ef6-4d3b-4306-929b-5104d11c83dc - 43551 - LOGS_CAPTURED - Started capturing logs in process (pid: 43551).
+[32m2026-02-12 19:05:16 +0000[0m - dagster - [34mDEBUG[0m - __ASSET_JOB - 61636ef6-4d3b-4306-929b-5104d11c83dc - 43551 - test_asset - STEP_START - Started execution of step "test_asset".
+[32m2026-02-12 19:05:16 +0000[0m - dagster - [34mDEBUG[0m - __ASSET_JOB - 61636ef6-4d3b-4306-929b-5104d11c83dc - 43551 - test_asset - STEP_OUTPUT - Yielded output "result" of type "Any". (Type check passed).
+[32m2026-02-12 19:05:16 +0000[0m - dagster - [34mDEBUG[0m - __ASSET_JOB - 61636ef6-4d3b-4306-929b-5104d11c83dc - test_asset - Writing file at: /home/alejandro/MASTER/VIZ/.tmp_dagster_home_bsj24kx9/storage/test_asset using PickledObjectFilesystemIOManager...
+[32m2026-02-12 19:05:16 +0000[0m - dagster - [34mDEBUG[0m - __ASSET_JOB - 61636ef6-4d3b-4306-929b-5104d11c83dc - 43551 - test_asset - ASSET_MATERIALIZATION - Materialized value test_asset.
+[32m2026-02-12 19:05:16 +0000[0m - dagster - [34mDEBUG[0m - __ASSET_JOB - 61636ef6-4d3b-4306-929b-5104d11c83dc - 43551 - test_asset - HANDLED_OUTPUT - Handled output "result" using IO manager "io_manager"
+[32m2026-02-12 19:05:16 +0000[0m - dagster - [34mDEBUG[0m - __ASSET_JOB - 61636ef6-4d3b-4306-929b-5104d11c83dc - 43551 - test_asset - STEP_SUCCESS - Finished execution of step "test_asset" in 228ms.
