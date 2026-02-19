@@ -1,7 +1,0 @@
-[32m2026-02-19 10:38:00 +0000[0m - dagster - [34mDEBUG[0m - __ASSET_JOB - 1243855c-6102-453e-8da6-0c3c4bc382ff - 29889 - LOGS_CAPTURED - Started capturing logs in process (pid: 29889).
-[32m2026-02-19 10:38:00 +0000[0m - dagster - [34mDEBUG[0m - __ASSET_JOB - 1243855c-6102-453e-8da6-0c3c4bc382ff - 29889 - carga_renta_raw - STEP_START - Started execution of step "carga_renta_raw".
-[32m2026-02-19 10:38:00 +0000[0m - dagster - [34mDEBUG[0m - __ASSET_JOB - 1243855c-6102-453e-8da6-0c3c4bc382ff - 29889 - carga_renta_raw - STEP_OUTPUT - Yielded output "result" of type "DataFrame". (Type check passed).
-[32m2026-02-19 10:38:00 +0000[0m - dagster - [34mDEBUG[0m - __ASSET_JOB - 1243855c-6102-453e-8da6-0c3c4bc382ff - carga_renta_raw - Writing file at: /home/alejandro/MASTER/VIZ/.tmp_dagster_home_3_fvlhkk/storage/carga_renta_raw using PickledObjectFilesystemIOManager...
-[32m2026-02-19 10:38:00 +0000[0m - dagster - [34mDEBUG[0m - __ASSET_JOB - 1243855c-6102-453e-8da6-0c3c4bc382ff - 29889 - carga_renta_raw - ASSET_MATERIALIZATION - Materialized value carga_renta_raw.
-[32m2026-02-19 10:38:01 +0000[0m - dagster - [34mDEBUG[0m - __ASSET_JOB - 1243855c-6102-453e-8da6-0c3c4bc382ff - 29889 - carga_renta_raw - HANDLED_OUTPUT - Handled output "result" using IO manager "io_manager"
-[32m2026-02-19 10:38:01 +0000[0m - dagster - [34mDEBUG[0m - __ASSET_JOB - 1243855c-6102-453e-8da6-0c3c4bc382ff - 29889 - carga_renta_raw - STEP_SUCCESS - Finished execution of step "carga_renta_raw" in 295ms.

@@ -16,6 +16,7 @@ outputs/
 # Dagster
 .dagster/
 dagster_home/
+.tmp_dagster_home_*/
 tmp*/
 
 # IDEs
