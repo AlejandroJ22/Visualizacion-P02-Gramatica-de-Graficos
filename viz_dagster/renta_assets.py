@@ -4,6 +4,7 @@ Cadena: carga -> limpieza -> unión -> visualización.
 """
 
 from pathlib import Path
+import os
 from textwrap import fill
 
 import pandas as pd
@@ -66,6 +67,23 @@ def _guardar_grafico(grafico, nombre_archivo: str, dpi: int = 300) -> str:
 @asset(group_name="renta")
 def carga_renta_raw() -> pd.DataFrame:
     df = pd.read_csv(RENTA_CSV, sep=",")
+
+    if os.getenv("PRACTICA_CHECKS_FAIL", "0") == "1" and not df.empty:
+        fila_rango_invalido = df.iloc[0].copy()
+        fila_rango_invalido["OBS_VALUE"] = 150
+
+        fila_union_invalida = df.iloc[0].copy()
+        fila_union_invalida["TIME_PERIOD_CODE"] = 2023
+        fila_union_invalida["TERRITORIO#es"] = "Municipio Ficticio"
+        fila_union_invalida["MEDIDAS#es"] = "Sueldos y salarios"
+        fila_union_invalida["OBS_VALUE"] = 55.0
+        fila_union_invalida["TERRITORIO_CODE"] = "99999"
+
+        df = pd.concat(
+            [df, pd.DataFrame([fila_rango_invalido, fila_union_invalida])],
+            ignore_index=True,
+        )
+
     return df
 
 
@@ -87,6 +105,12 @@ def limpieza_renta(carga_renta_raw: pd.DataFrame) -> pd.DataFrame:
     df = carga_renta_raw.copy()
     df["OBS_VALUE"] = pd.to_numeric(df["OBS_VALUE"], errors="coerce")
     df["TIME_PERIOD_CODE"] = pd.to_numeric(df["TIME_PERIOD_CODE"], errors="coerce")
+    df["TERRITORIO_CODE"] = (
+        df["TERRITORIO_CODE"]
+        .astype(str)
+        .str.extract(r"(\d{5})", expand=False)
+        .fillna(df["TERRITORIO_CODE"].astype(str))
+    )
     df = df.dropna(
         subset=["OBS_VALUE", "TIME_PERIOD_CODE", "TERRITORIO#es", "MEDIDAS#es"]
     )

@@ -25,7 +25,9 @@ VIZ/
 │   └── lab-renta.py
 ├── viz_dagster/
 │   ├── __init__.py
+│   ├── definitions.py
 │   ├── renta_assets.py
+│   ├── renta_checks.py
 │   └── test_asset.py
 ├── pyproject.toml
 ├── requirements.txt
@@ -53,7 +55,7 @@ Dependencias clave: `dagster`, `dagster-webserver`, `pandas`, `plotnine`, `openp
 Inicia Dagster:
 
 ```bash
-dagster dev -m viz_dagster
+dagster dev -f viz_dagster/definitions.py
 ```
 
 Abre `http://localhost:3000` y materializa los assets desde la UI.
@@ -72,6 +74,15 @@ Abre `http://localhost:3000` y materializa los assets desde la UI.
 
 Las salidas se guardan en `outputs/`.
 
+### Checks de calidad
+
+Los checks del pipeline están implementados en `viz_dagster/renta_checks.py` y registrados en `viz_dagster/definitions.py`.
+
+Para práctica/verificación, puedes forzar fallos controlados en checks con:
+```bash
+PRACTICA_CHECKS_FAIL=1 dagster dev -f viz_dagster/definitions.py
+```
+
 ## Prototipado local
 
 Script disponible:
@@ -83,6 +94,7 @@ python3 src/lab-renta.py
 ## Documentación
 
 - Análisis de decisiones visuales y gramática de gráficos: `docs/gramatica-graficos-analisis.md`
+- Diseño e implementación de checks: `docs/calidad-checks.md`
 
 ## Estado actual de visualizaciones
 
