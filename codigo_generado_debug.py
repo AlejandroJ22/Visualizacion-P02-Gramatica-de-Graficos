@@ -16,7 +16,7 @@ def generar_plot(df):
     plot = (ggplot(df, aes(x='TIME_PERIOD_CODE', y='OBS_VALUE', group='TERRITORIO#es', color='TERRITORIO#es')) +
             geom_line(size=0.9, alpha=0.8) +
             labs(title='Evolucion del gasto por isla', subtitle='Sueldos y salarios', x='Ano', y='Gasto en EUR', color='Territorio') +
-            theme_minimal() + 
+            theme_minimal() +
             theme(legend_position='bottom'))
     
     return plot
