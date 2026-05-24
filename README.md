@@ -96,6 +96,55 @@ python3 src/lab-renta.py
 - Análisis de decisiones visuales y gramática de gráficos: `docs/gramatica-graficos-analisis.md`
 - Diseño e implementación de checks: `docs/calidad-checks.md`
 
+## Cambios recientes (24-May-2026)
+
+Se han añadido diagnósticos y robustez en los assets geoespaciales para asegurar
+que las métricas bivariadas (renta vs servicios / renta vs ocupación alta)
+se calculen sobre datos emparejados válidos y que las correlaciones no devuelvan
+NaN por merges fallidos o columnas constantes.
+
+- Archivo modificado principal: [viz_dagster/geo_assets.py](viz_dagster/geo_assets.py)
+	- Añadida la función `normalizar_geocode(x)` para homogeneizar claves (strip, upper,
+		eliminar prefijos de fecha tipo `20220101_`, normalizar separadores).
+	- Añadidos logs de perfilado de geocodes (ejemplos raw/normalizados, conteos únicos)
+		y solapamiento antes del merge (cobertura izquierda/derecha).
+	- Las uniones con `actividad_secciones` y `ocupacion_secciones` se realizan ahora
+		sobre `geocode_norm` (normalizado) antes de agrupar y calcular deltas.
+	- Añadido `_log_correlation_diagnostics(...)` que registra: filas, NaN por columna,
+		número de valores únicos, std, % ceros y `head()` antes de calcular correlaciones;
+		la correlación se calcula solo sobre filas limpias (`dropna()`), y se emiten
+		warnings si falta variabilidad o filas suficientes.
+	- Se añaden anotaciones de correlación en los mapas y se loguean los valores limpios.
+
+### Objetivo
+
+Garantizar que `delta_servicios` y `delta_ocupacion_alta` contengan valores reales
+tras el merge (o producir un warning claro si la cobertura es baja), y mejorar
+la trazabilidad para depuración desde los logs de Dagster.
+
+### Cómo ver los diagnósticos
+
+1. Activa el entorno virtual y lanza Dagster desde la raíz del proyecto:
+
+```bash
+source .venv-1/bin/activate
+dagster dev -f viz_dagster/definitions.py
+```
+
+2. En la UI de Dagster (http://localhost:3000) materializa los assets:
+	 - `mapa_relacion_renta_servicios_2021_2023`
+	 - `mapa_relacion_renta_ocupacion_alta_2021_2023`
+
+3. Observa los logs del run en la terminal donde corre `dagster dev` o en la UI del run:
+	 - Buscar mensajes con prefijos `diagnostico correlacion ...` y
+		 `servicios | filas emparejadas=` / `ocupacion alta | filas emparejadas=`.
+
+Si la cobertura del merge es menor al 80% verás warnings indicando que revisar
+la normalización de `geocode`.
+
+Si quieres, puedo añadir estos diagnósticos también como metadata del asset
+para que aparezcan en los checks en la UI (en vez de solo en los logs).
+
 ## Estado actual de visualizaciones
 
 - Serie temporal de rentas en Canarias.
